@@ -1,10 +1,15 @@
+import * as dotenv from 'dotenv';
+
+dotenv.config()
+
 import * as http from 'http';
 import express from 'express';
 import { RoutesConfig } from './routes/routes.config';
 import { UserRoutes } from './routes/user.routes';
 import { expressjwt as jwt } from 'express-jwt';
 
-export const SECRET = "H4ta-h43hfHbE34tUOplK-3rE1";
+
+export const SECRET = "H4tah43hfHbE34tUOplK3rE1";
 
 const app = express();
 
@@ -23,7 +28,7 @@ app.use(
   }).unless({ path: ["/api/users/signup", "/api/users/signin"] })
 );
 
-const port = 3000;
+const port = 3001;
 
 const routes: Array<RoutesConfig> = [];
 

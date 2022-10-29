@@ -3,7 +3,7 @@ import { sqlManager } from "../../config/DBConnection";
 class UsersDao {
   async getByEmailAndPassword(email: string, password: string){
     const user = await sqlManager`
-      select * from users where email is ${email} and ${password}
+      select * from users where email=${email} and password=${password}
     `
     return user;
   }
