@@ -1,0 +1,42 @@
+version: "3.5"
+
+services:
+  database:
+    container_name: database
+    build:
+      context: ./config/db
+    networks:
+      - node-template-network
+    ports: 
+      - "5432:5432"
+    environment: 
+      POSTGRES_HOST: localhost
+      POSTGRES_PORT: 5432
+      POSTGRES_DATABASE: postgres
+      POSTGRES_USERNAME: postgres
+      POSTGRES_PASSWORD: password
+    
+  application:
+    image: nodejs
+    container_name: application
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    networks:
+      - node-template-network
+    environment: 
+      POSTGRES_HOST: database
+      POSTGRES_PORT: 5432
+      POSTGRES_DATABASE: postgres
+      POSTGRES_USERNAME: postgres
+      POSTGRES_PASSWORD: password
+    command: npm run dev
+    depends_on: 
+      - database
+    
+
+networks:
+  node-template-network:
+    driver: bridge
