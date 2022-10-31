@@ -7,9 +7,11 @@ export class UserRoutes extends RoutesConfig {
     super(app, 'UsersRoutes');
   }
   configureRoutes(): Application {
-    this.app.post("/api/users/signup", userController.register)
-    this.app.post("/api/users/signin", userController.login)
+    this.app
+      .post("/api/users/signup", userController.register)
+      .post("/api/users/signin", userController.login)
+      .get("/api/users/get-personal-info", userController.getPersonalInformation)
 
-    return this.app;    
+    return this.app;
   }
 }

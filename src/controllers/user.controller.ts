@@ -30,11 +30,13 @@ class UserController {
     }
   }
 
+  //testing purposes
   async getPersonalInformation(req: express.Request, res: express.Response) {
-    const authorizationToken = req.headers.authorization;
     try {
-      const decodedUserInfo = JSON.parse(jwt.decode(authorizationToken).toString());
-      console.log(decodedUserInfo);
+      const authorizationToken = req.headers.authorization?.split("Bearer ")[1];
+      const decodedInfo = jwt.verify(authorizationToken, SECRET);
+            
+      res.status(200).send(decodedInfo);
     } catch (error) {
       console.log(error);
       res.status(500).send({ errorMessage: error.message });
